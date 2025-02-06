@@ -17,12 +17,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // cors middleware
-app.use(
-  cors({
-    origin: ['http://localhost:5000', 'http://localhost:3000'],
-    credentials: true,
-  })
-);
+if (process.env.NODE_ENV !== 'production') {
+  app.use(
+    cors({
+      origin: ['http://localhost:5000', 'http://localhost:3000'],
+      credentials: true,
+    })
+  );
+}
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the RandomIdeas API' });
